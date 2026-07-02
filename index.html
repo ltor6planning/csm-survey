@@ -27,7 +27,7 @@
                     <p class="text-xs text-amber-800 leading-tight font-medium">Ito ay ang tracking string token na ibinigay sa inyo ng Releasing Officer.</p>
                 </div>
                 <div class="flex flex-col gap-3 w-full">
-                    <input type="text" id="control_no" name="control_no" required maxlength="15" placeholder="Halimbawa: 26-20260702-001" class="w-full p-3 font-mono text-lg font-bold border-2 border-amber-300 rounded-lg tracking-widest bg-white uppercase text-slate-900 focus:outline-none focus:border-amber-500 text-center shadow-inner">
+                    <input type="text" id="control_no" name="control_no" required maxlength="15" placeholder="e.g. 26-20260702-001" class="w-full p-3 font-mono text-lg font-bold border-2 border-amber-300 rounded-lg tracking-widest bg-white uppercase text-slate-900 focus:outline-none focus:border-amber-500 text-center shadow-inner">
                     <button type="button" id="btn_verify" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-lg text-xs uppercase tracking-wider transition cursor-pointer text-center shadow-md">
                         I-verify ang Control Code
                     </button>
@@ -54,9 +54,9 @@
                         <div class="space-y-1.5">
                             <label class="block font-bold text-slate-700">Kasarian (Sex) <span class="text-red-500">*</span></label>
                             <select id="sex" name="sex" required class="w-full p-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-900" disabled>
-                                <option value="NI">Hindi Sasabihin / NI</option>
                                 <option value="Male">Lalake / Male</option>
                                 <option value="Female">Babae / Female</option>
+                                <option value="NI">Hindi Sasabihin / NI</option>
                             </select>
                         </div>
                         <div class="space-y-1.5">
@@ -213,7 +213,7 @@
                         </div>
 
                         <div class="space-y-1">
-                            <label class="block font-bold text-slate-800 leaning-tight">CC3. Kung nabasa mo ang Citizen's Charter, gaano ito nakatulong sa inyong transaksyon?</label>
+                            <label class="block font-bold text-slate-800 leading-tight">CC3. Kung nabasa mo ang Citizen's Charter, gaano ito nakatulong sa inyong transaksyon?</label>
                             <select id="cc3" name="cc3" required class="w-full p-2 bg-white border rounded-lg focus:outline-none focus:border-blue-900 font-medium text-slate-700" disabled>
                                 <option value="1">1. Lubos na nakatulong (Helped very much)</option>
                                 <option value="2">2. Medyo nakatulong (Somewhat helped)</option>
@@ -355,12 +355,19 @@
     </main>
 
     <footer class="bg-slate-900 text-slate-500 text-center py-3 text-[10px] border-t border-slate-950 font-mono shrink-0">
-        &copy; 2026 LTO Region VI. Clean Implementation Matrix.
+        &copy; 2026 LTO Region VI. System Classification Configured.
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/dist/umd/supabase.js"></script>
 
     <script>
+        // ===================================================
+        // 0. SYSTEM CONFIGURATION PARAMETER DEFINITION
+        // ===================================================
+        // Leave as 'offsite' for the public version clients use on their own phones.
+        // Change this constant to 'onsite' for the branch kiosk terminal versions.
+        const SUBMISSION_MODE = 'offsite'; 
+
         // ===================================================
         // 1. SETTINGS & CONTEXT CONNECTIONS INITIALIZATION
         // ===================================================
@@ -368,7 +375,6 @@
         const SUPABASE_ANON_KEY = 'sb_publishable_txTDcMKNtRUpp4Hqb4b6jg_ZSudcxqM';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Map today's local client system parameters into calendar row defaults
         document.getElementById('date_of_visit').value = new Date().toISOString().split('T')[0];
 
         // ===================================================
@@ -397,21 +403,19 @@
         function executeMvrsDependencyPipeline() {}
 
         // ===================================================
-        // 3. CITIZEN CHARTER LOCKING GATEWAY SYSTEM (NEW)
+        // 3. CITIZEN CHARTER LOCKING GATEWAY SYSTEM
         // ===================================================
         function handleCharterLogic() {
             const cc1Val = document.getElementById('cc1').value;
             const cc2Select = document.getElementById('cc2');
             const cc3Select = document.getElementById('cc3');
 
-            // If CC1 is 2 (Didn't see it) or 4 (Doesn't know & didn't see it) -> Lock inputs to N/A codes
             if (cc1Val === "2" || cc1Val === "4") {
-                cc2Select.value = "5"; // 5 represents N/A option parameters row value index
-                cc3Select.value = "4"; // 4 represents N/A option parameters row value index
+                cc2Select.value = "5"; // Mapped to N/A digit value profile
+                cc3Select.value = "4"; // Mapped to N/A digit value profile
                 cc2Select.disabled = true;
                 cc3Select.disabled = true;
             } else {
-                // Unlock safely if CC1 is 1 or 3
                 cc2Select.disabled = false;
                 cc3Select.disabled = false;
                 if (cc2Select.value === "5") cc2Select.value = "1";
@@ -479,7 +483,6 @@
                     el.removeAttribute('disabled');
                 });
                 
-                // Fire logical locks immediately on enablement check sweeps
                 handleCharterLogic();
                 togglePipelineView();
 
@@ -496,7 +499,7 @@
         // ===================================================
         function clearSectionDemographics() {
             document.getElementById('client_type').value = "Citizen";
-            document.getElementById('sex').value = "NI";
+            document.getElementById('sex').value = "Male";
             document.getElementById('age').value = "";
             document.getElementById('date_of_visit').value = new Date().toISOString().split('T')[0];
         }
@@ -565,7 +568,6 @@
                 return;
             }
 
-            // Read options via element ID values directly to dodge any disabled omission traps
             const payload = {
                 control_code: controlNo,
                 client_type: formData.get('client_type'),
@@ -575,13 +577,15 @@
                 date_of_visit: formData.get('date_of_visit'),
                 main_services: mainServices,
                 
+                // 🚨 CONFIGURATION BIND: Dynamically attaches your custom constant environment type label string
+                submission_mode: SUBMISSION_MODE,
+                
                 dls_common: formData.get('dls_common') || null,
                 dls_misc: formData.getAll('dls_misc').join(', ') || null,
                 mvrs_common: formData.get('mvrs_common') || null,
                 mvrs_misc: formData.getAll('mvrs_misc').join(', ') || null,
                 les_common: formData.getAll('les_common').join(', ') || null,
                 
-                // Mapped safely as explicit integers
                 cc1: parseInt(document.getElementById('cc1').value, 10),
                 cc2: parseInt(document.getElementById('cc2').value, 10),
                 cc3: parseInt(document.getElementById('cc3').value, 10),
