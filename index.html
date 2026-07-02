@@ -45,13 +45,15 @@
                         <p class="text-xs text-amber-800 mb-2">
                             Ipasok ang 11-digit na code na ibinigay ng opisyal upang umunlad (Halimbawa: 06-260616-001).
                         </p>
-                        <div class="flex gap-2">
+                        <div class="flex flex-col gap-3 w-full">
                             <input type="text" id="control_no" name="control_no" required
-                                   maxlength="13" 
-                                   placeholder="00-000000-000" 
-                                   class="w-full p-3 font-mono text-lg font-bold border-2 border-amber-300 rounded-md tracking-widest bg-white uppercase text-slate-900 focus:outline-none focus:border-amber-500 shadow-inner">
-                            <button type="button" id="btn_verify" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 rounded-md text-xs uppercase tracking-wider transition whitespace-nowrap cursor-pointer">
-                                I-verify Code
+                                maxlength="13" 
+                                placeholder="00-000000-000" 
+                                class="w-full p-3 font-mono text-lg font-bold border-2 border-amber-300 rounded-md tracking-widest bg-white uppercase text-slate-900 focus:outline-none focus:border-amber-500 shadow-inner">
+                            
+                            <button type="button" id="btn_verify" 
+                                    class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-md text-xs uppercase tracking-wider transition cursor-pointer text-center">
+                                Verify Code
                             </button>
                         </div>
                         <span id="verify_status_msg" class="block text-[11px] font-semibold text-amber-700 mt-2">
