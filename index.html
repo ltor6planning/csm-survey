@@ -6,751 +6,561 @@
     <title>LTO Region VI - Client Satisfaction Measurement</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between font-sans">
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col justify-between font-sans">
 
     <header class="bg-blue-900 text-white shadow-md py-4 px-6">
         <div class="max-w-4xl mx-auto flex items-center space-x-4">
-            <!--div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-blue-900 font-bold text-xs text-center p-1">
-                LTO LOGO
-                
-        </div -->
-            <img width="80" alt="LTO" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Land_Transportation_Office.svg/500px-Land_Transportation_Office.svg.png">
+            <img width="80" alt="LTO Shield" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Land_Transportation_Office.svg/500px-Land_Transportation_Office.svg.png">
             <div>
-                <h1 class="text-xl font-bold tracking-wide">LAND TRANSPORTATION OFFICE</h1>
-                <p class="text-xs text-blue-200">Region VI - Western Visayas | Client Satisfaction Measurement (CSM)</p>
+                <h1 class="text-xl font-bold tracking-wide uppercase leading-none md:text-2xl">Land Transportation Office</h1>
+                <p class="text-xs text-blue-200 font-medium mt-1">Region VI - Western Visayas | Client Satisfaction Measurement (CSM)</p>
             </div>
         </div>
     </header>
 
     <main class="max-w-4xl w-full mx-auto p-4 md:p-6 flex-grow">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+        <div class="bg-white rounded-2xl shadow-lg p-5 md:p-8 space-y-6 border border-gray-200">
             
-            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mb-6 rounded-r">
-                <p class="text-sm text-blue-900 leading-relaxed font-medium">
-                    <strong>Patalastas:</strong> Ang Client Satisfaction Measurement (CSM) na ito ay naglalayong makuha ang iyong saloobin sa serbisyong aming naibigay. Ang inyong mga sagot ay makatutulong sa lalo pang pagpapabuti ng aming serbisyo alinsunod sa ARTA Mandate.
-                </p>
-                <p class="text-xs text-blue-700 leading-relaxed mt-2 italic">
-                    <strong>Notice:</strong> This Client Satisfaction Measurement (CSM) aims to capture your feedback on the services we provided. Your responses will help us further improve our services in accordance with the ARTA Mandate.
-                </p>
+            <div id="verification_panel" class="bg-amber-50 border-2 border-amber-200 p-5 rounded-xl space-y-3 shadow-xs">
+                <div>
+                    <h2 class="text-sm font-black text-amber-950 uppercase tracking-wider mb-1">Paki-sulat ang inyong Control Number:</h2>
+                    <p class="text-xs text-amber-800 leading-tight font-medium">Ito ay ang tracking string token na ibinigay sa inyo ng Releasing Officer.</p>
+                </div>
+                <div class="flex flex-col gap-3 w-full">
+                    <input type="text" id="control_no" name="control_no" required maxlength="15" placeholder="e.g. 26-20260702-001" class="w-full p-3 font-mono text-lg font-bold border-2 border-amber-300 rounded-lg tracking-widest bg-white uppercase text-slate-900 focus:outline-none focus:border-amber-500 text-center shadow-inner">
+                    <button type="button" id="btn_verify" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-lg text-xs uppercase tracking-wider transition cursor-pointer text-center shadow-md">
+                        I-verify ang Control Code
+                    </button>
+                </div>
             </div>
 
-            <form action="#" method="POST" class="space-y-8">
+            <form id="csm_survey_form" class="space-y-6">
                 
-                <!-- CONTROL NUMBER CODE GATEWAY CONTAINER -->
-                <section class="bg-amber-50 border border-amber-200 p-5 rounded-lg shadow-sm">
-                    <div class="max-w-md">
-                        <label class="block text-sm font-bold text-amber-950 uppercase tracking-wide">
-                            Numero ng Kontrol <span class="text-xs text-gray-500 font-normal">/ Control Number</span> <span class="text-red-500">*</span>
-                        </label>
-                        <p class="text-xs text-amber-800 mb-2">
-                            Ipasok ang 11-digit na code na ibinigay ng opisyal upang umunlad (Halimbawa: 06-260616-001).
-                        </p>
-                        <div class="flex flex-col gap-3 w-full">
-                            <input type="text" id="control_no" name="control_no" required
-                                maxlength="13" 
-                                placeholder="00-000000-000" 
-                                class="w-full p-3 font-mono text-lg font-bold border-2 border-amber-300 rounded-md tracking-widest bg-white uppercase text-slate-900 focus:outline-none focus:border-amber-500 shadow-inner">
-                            
-                            <button type="button" id="btn_verify" 
-                                    class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-md text-xs uppercase tracking-wider transition cursor-pointer text-center">
-                                Verify Code
-                            </button>
+                <section class="bg-white p-2 rounded-lg">
+                    <div class="flex justify-between items-center border-b pb-2 mb-4">
+                        <h2 class="text-lg font-semibold text-blue-950">I. Demographics Profile</h2>
+                        <button type="button" onclick="clearSectionDemographics()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs sm:text-sm">
+                        <div class="space-y-1.5">
+                            <label class="block font-bold text-slate-700">Client Type <span class="text-red-500">*</span></label>
+                            <select id="client_type" name="client_type" required class="w-full p-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-900" disabled>
+                                <option value="Citizen">Mamamayan / Citizen</option>
+                                <option value="Business">Negosyo / Business</option>
+                                <option value="Government">Pamahalaan / Government</option>
+                            </select>
                         </div>
-                        <span id="verify_status_msg" class="block text-[11px] font-semibold text-amber-700 mt-2">
-                            🔒 Naka-lock: Mangyaring i-verify muna ang code sa itaas upang masagutan ang form.
-                        </span>
+                        <div class="space-y-1.5">
+                            <label class="block font-bold text-slate-700">Kasarian (Sex) <span class="text-red-500">*</span></label>
+                            <select id="sex" name="sex" required class="w-full p-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-900" disabled>
+                                <option value="Male">Lalake / Male</option>
+                                <option value="Female">Babae / Female</option>
+                                <option value="NI">Hindi Sasabihin / NI</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="block font-bold text-slate-700">Edad (Age) <span class="text-red-500">*</span></label>
+                            <input type="number" id="age" name="age" required min="16" max="99" placeholder="e.g. 28" class="w-full p-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-900 font-mono font-bold" disabled>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="block font-bold text-slate-700">Petsa (Date) <span class="text-red-500">*</span></label>
+                            <input type="date" id="date_of_visit" name="date_of_visit" required class="w-full p-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-900 font-mono text-xs" disabled>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5 max-w-xl mt-4">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide">Opisinang Pinuntahan / Office Visited:</label>
+                        <input type="text" id="office_name_display" readonly 
+                               class="w-full p-2.5 bg-gray-100 text-slate-700 font-bold border border-gray-300 rounded-lg shadow-inner cursor-not-allowed text-xs sm:text-sm" 
+                               placeholder="Awtomatikong lalabas dito ang pangalan ng opisina pagkatapos i-verify ang Code...">
                     </div>
                 </section>
-                
-                <!-- SURVEY CONTENTS CONTAINER WRAPPER -->
-                <div id="survey_form_contents" class="opacity-40 pointer-events-none space-y-8 transition-all duration-300">
+
+                <section class="bg-white p-2 rounded-lg relative">
+                    <div class="flex justify-between items-center border-b pb-2 mb-4">
+                        <h2 class="text-lg font-semibold text-blue-950">II. Serbisyong Nakuha <span class="text-sm font-normal text-gray-500">/ Service Availed</span></h2>
+                        <button type="button" onclick="clearSectionServices()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
+                    </div>
                     
-                    <!-- SECTION I: CLIENT METADATA PARAMETERS -->
-                    <section class="bg-white p-2 rounded-lg relative">
-                        <div class="flex justify-between items-center border-b pb-2 mb-4">
-                            <h2 class="text-lg font-semibold text-blue-950">I. Impormasyon ng Kliyente <span class="text-sm font-normal text-gray-500">/ Client Demographics</span></h2>
-                            <button type="button" onclick="clearSectionDemographics()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold mb-2 text-slate-800">Pangunahing Serbisyo <span class="text-xs text-gray-500 font-normal">/ LTO Main Service</span> <span class="text-red-500">*</span></label>
+                        <p class="text-xs text-gray-500 mb-3">Maaaring pumili ng isa o higit pa base sa transaksyon. / You may select one or more based on transactions.</p>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <label class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-4 py-2 rounded-md cursor-pointer hover:bg-slate-100 transition">
+                                <input type="checkbox" name="main_service" value="DLS" onchange="togglePipelineView()" class="w-4 h-4 text-blue-600 rounded shadow-xs" disabled>
+                                <span class="text-sm font-medium">Driver's License System (DLS)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-4 py-2 rounded-md cursor-pointer hover:bg-slate-100 transition">
+                                <input type="checkbox" name="main_service" value="MVRS" onchange="togglePipelineView()" class="w-4 h-4 text-blue-600 rounded shadow-xs" disabled>
+                                <span class="text-sm font-medium">Motor Vehicle Registration System (MVRS)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-4 py-2 rounded-md cursor-pointer hover:bg-slate-100 transition">
+                                <input type="checkbox" name="main_service" value="LES" onchange="togglePipelineView()" class="w-4 h-4 text-blue-600 rounded shadow-xs" disabled>
+                                <span class="text-sm font-medium">Law Enforcement System (LES)</span>
+                            </label>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-1">Uri ng Kliyente <span class="text-xs text-gray-500 font-normal">/ Client Type</span> <span class="text-red-500">*</span></label>
-                                <select id="client_type" name="client_type" class="w-full p-2 border rounded-md bg-white text-sm" required disabled>
-                                    <option value="">-- Select --</option>
-                                    <option value="Citizen">Mamamayan / Citizen</option>
-                                    <option value="Business">Negosyo / Business</option>
-                                    <option value="Government">Pamahalaan / Government</option>
-                                </select>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
+                    </div>
+
+                    <div class="space-y-4 pl-4 border-l-2 border-blue-200 ml-2">
+                        
+                        <div id="DLS_section" style="display: none;" class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <h3 class="text-sm font-bold text-blue-900 mb-3 flex items-center">
+                                <span class="bg-blue-100 text-blue-800 w-6 h-6 inline-flex items-center justify-center rounded text-xs mr-2">DLS</span>
+                                Driver's License Transactions
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1">Kasarian <span class="text-xs text-gray-500 font-normal">/ Sex</span> <span class="text-red-500">*</span></label>
-                                    <select id="sex" name="sex" class="w-full p-2 border rounded-md bg-white text-sm" required disabled>
-                                        <option value="">-- Select --</option>
-                                        <option value="Male">Lalaki / Male</option>
-                                        <option value="Female">Babae / Female</option>
-                                        <option value="NI">Hindi Sinabi / Not Indicated</option>
+                                    <label class="block text-xs font-semibold mb-1 text-slate-700">Common Transactions</label>
+                                    <select id="dls_common" name="dls_common" onchange="executeDlsDependencyPipeline()" class="w-full p-2 border border-gray-300 rounded-md bg-white text-xs font-medium" disabled>
+                                        <option value="">-- Select DLS Common Transaction --</option>
+                                        <option value="Application for Student Permits">Application for Student Permits</option>
+                                        <option value="New Driver's or Conductor's License Applications">New Driver's or Conductor's License Applications</option>
+                                        <option value="Renewal of Driver's or Conductor's Licenses">Renewal of Driver's or Conductor's Licenses</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1">Edad <span class="text-xs text-gray-500 font-normal">/ Age</span> <span class="text-red-500">*</span></label>
-                                    <input type="number" id="age" name="age" class="w-full p-2 border rounded-md text-sm" min="15" max="100" required disabled placeholder="e.g. 25">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-1">Opisinang Binisita <span class="text-xs text-gray-500 font-normal">/ Office Visited</span> <span class="text-red-500">*</span></label>
-                                <select id="office_visited" name="office_visited" class="w-full p-2 border rounded-md bg-white text-sm" required disabled>
-                                    <option value="">-- Select Office --</option>
-                                    <option value="06">Regional Office (Iloilo)</option>
-                                    <option value="61">Iloilo District Office</option>
-                                    <option value="62">Bacolod District Office</option>
-                                    <option value="63">Roxas District Office</option>
-                                    <option value="64">Kalibo District Office</option>
-                                    <option value="65">San Jose District Office</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-1">Petsa ng Pagbisita <span class="text-xs text-gray-500 font-normal">/ Date of Visit</span> <span class="text-red-500">*</span></label>
-                                <input type="date" id="date_of_visit" name="date_of_visit" class="w-full p-2 border rounded-md text-sm text-slate-700 bg-white" required disabled>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- SECTION II: CORE SERVICE MODULES -->
-                    <section class="bg-white p-2 rounded-lg relative">
-                        <div class="flex justify-between items-center border-b pb-2 mb-4">
-                            <h2 class="text-lg font-semibold text-blue-950">II. Serbisyong Nakuha <span class="text-sm font-normal text-gray-500">/ Service Availed</span></h2>
-                            <button type="button" onclick="clearSectionServices()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="block text-sm font-semibold mb-2 text-slate-800">Pangunahing Serbisyo <span class="text-xs text-gray-500 font-normal">/ LTO Main Service</span> <span class="text-red-500">*</span></label>
-                            <p class="text-xs text-gray-500 mb-3">Maaaring pumili ng isa o higit pa base sa transaksyon. / You may select one or more based on transactions.</p>
-                            
-                            <div class="flex flex-wrap gap-4">
-                                <label class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-4 py-2 rounded-md cursor-pointer hover:bg-slate-100 transition">
-                                    <input type="checkbox" name="main_service" value="DLS" class="w-4 h-4 text-blue-600 rounded" disabled>
-                                    <span class="text-sm font-medium">Driver's License System (DLS)</span>
-                                </label>
-                                <label class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-4 py-2 rounded-md cursor-pointer hover:bg-slate-100 transition">
-                                    <input type="checkbox" name="main_service" value="MVRS" class="w-4 h-4 text-blue-600 rounded" disabled>
-                                    <span class="text-sm font-medium">Motor Vehicle Registration System (MVRS)</span>
-                                </label>
-                                <label class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-4 py-2 rounded-md cursor-pointer hover:bg-slate-100 transition">
-                                    <input type="checkbox" name="main_service" value="LES" class="w-4 h-4 text-blue-600 rounded" disabled>
-                                    <span class="text-sm font-medium">Law Enforcement System (LES)</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- SUB-TRANSACTION CHANNELS ROW CONTAINER -->
-                        <div class="space-y-4 pl-4 border-l-2 border-blue-200 ml-2">
-                            
-                            <!-- DLS SEGMENT -->
-                            <div id="DLS_section" style="display: none;" class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                                <h3 class="text-sm font-bold text-blue-900 mb-3 flex items-center">
-                                    <span class="bg-blue-100 text-blue-800 w-6 h-6 inline-flex items-center justify-center rounded text-xs mr-2">DLS</span>
-                                    Driver's License Transactions
-                                </h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-semibold mb-1 text-slate-700">Common Transactions</label>
-                                        <select id="dls_common" name="dls_common" onchange="executeDlsDependencyPipeline()" class="w-full p-2 border rounded-md bg-white text-sm" disabled>
-                                            <option value="">-- Select DLS Common Transaction --</option>
-                                            <option value="Application for Student Permits">Application for Student Permits</option>
-                                            <option value="New Driver's or Conductor's License Applications">New Driver's or Conductor's License Applications</option>
-                                            <option value="Renewal of Driver's or Conductor's Licenses">Renewal of Driver's or Conductor's Licenses</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold mb-1 text-gray-600">Miscellaneous Transactions <span class="font-normal italic">(Hold Ctrl/Cmd to select multiple)</span></label>
-                                        <select id="dls_misc" name="dls_misc" multiple class="w-full p-2 border rounded-md bg-white text-sm h-32 disabled:bg-slate-100 disabled:text-slate-400" disabled>
-                                            <!-- Injected dynamically based on rule profiles -->
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- MVRS SEGMENT -->
-                            <div id="MVRS_section" style="display: none;" class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                                <h3 class="text-sm font-bold text-blue-900 mb-3 flex items-center">
-                                    <span class="bg-blue-100 text-blue-800 w-6 h-6 inline-flex items-center justify-center rounded text-xs mr-2">MVRS</span>
-                                    Motor Vehicle Registration Transactions
-                                </h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-semibold mb-1 text-slate-700">Common Transactions</label>
-                                        <select id="mvrs_common" name="mvrs_common" onchange="executeMvrsDependencyPipeline()" class="w-full p-2 border rounded-md bg-white text-sm" disabled>
-                                            <option value="">-- Select MVRS Common Transaction --</option>
-                                            <option value="Initial Registration of New Motor Vehicles">Initial Registration of New Motor Vehicles</option>
-                                            <option value="Renewal of Motor Vehicle Registration">Renewal of Motor Vehicle Registration</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold mb-1 text-gray-600">Miscellaneous Transactions <span class="font-normal italic">(Hold Ctrl/Cmd to select multiple)</span></label>
-                                        <select id="mvrs_misc" name="mvrs_misc" multiple class="w-full p-2 border rounded-md bg-white text-sm h-32 disabled:bg-slate-100 disabled:text-slate-400" disabled>
-                                            <option value="Revisions of Motor Vehicle Records">Revisions of Motor Vehicle Records</option>
-                                            <option value="Annotation of Mortgage">Annotation of Mortgage</option>
-                                            <option value="Cancellation of Mortgage">Cancellation of Mortgage</option>
-                                            <option value="Change of Engine/Color/Body Design">Change of Engine/Color/Body Design</option>
-                                            <option value="Duplicate Certificate of Registration">Duplicate Certificate of Registration</option>
-                                            <option value="Transfer of Ownership">Transfer of Ownership</option>
-                                            <option value="Storage of Motor Vehicle">Storage of Motor Vehicle</option>
-                                            <option value="Inspection of Motor Vehicle">Inspection of Motor Vehicle</option>
-                                            <option value="Certification">Certification</option>
-                                            <option value="Restamping of Serial/Chassis Number">Restamping of Serial/Chassis Number</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- LES SEGMENT -->
-                            <div id="LES_section" style="display: none;" class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                                <h3 class="text-sm font-bold text-blue-900 mb-3 flex items-center">
-                                    <span class="bg-blue-100 text-blue-800 w-6 h-6 inline-flex items-center justify-center rounded text-xs mr-2">LES</span>
-                                    Law Enforcement Transactions
-                                </h3>
-                                <div class="grid grid-cols-1 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-semibold mb-1 text-slate-700">Common Transactions <span class="font-normal italic text-gray-600">(Hold Ctrl/Cmd to select multiple)</span></label>
-                                        <select id="les_common" name="les_common" multiple class="w-full p-2 border rounded-md bg-white text-sm h-28" disabled>
-                                            <option value="Settlement of Apprehensions">Settlement of Apprehensions</option>
-                                            <option value="Contest of Traffic Violation Cases">Contest of Traffic Violation Cases</option>
-                                            <option value="Requesting a Certificate of No Apprehension">Requesting a Certificate of No Apprehension</option>
-                                            <option value="Seminar">Seminar</option>
-                                        </select>
-                                    </div>
+                                    <label class="block text-xs font-semibold mb-1 text-gray-600">Miscellaneous Transactions <span class="font-normal italic text-[10px] text-slate-400">(Hold Ctrl/Cmd to select multiple)</span></label>
+                                    <select id="dls_misc" name="dls_misc" multiple class="w-full p-2 border border-gray-300 rounded-md bg-white text-xs h-32 disabled:bg-slate-100 disabled:text-slate-400 font-medium" disabled>
+                                        <option value="Duplicate License">Duplicate License</option>
+                                        <option value="Additional Restriction Code (RC)">Additional Restriction Code (RC)</option>
+                                        <option value="Revision of Records (Change Status/Address)">Revision of Records (Change Status/Address)</option>
+                                        <option value="Certification of Records">Certification of Records</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                    </section>
 
-                    <!-- SECTION III: CITIZEN'S CHARTER COMPLIANCE DATA -->
-                    <section class="bg-white p-2 rounded-lg relative space-y-6">
-                        <div class="flex justify-between items-center border-b pb-2 mb-4">
-                            <h2 class="text-lg font-semibold text-blue-950">III. Kasunduan sa Serbisyo ng Mamamayan <span class="text-sm font-normal text-gray-500">/ Citizen's Charter (CC)</span></h2>
-                            <button type="button" onclick="clearSectionCitizenCharter()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
-                        </div>
-                        
-                        <div class="bg-slate-50 p-4 border border-slate-200 rounded-lg">
-                            <p class="text-sm font-bold text-slate-900">CC1. Alin sa mga sumusunod ang pinakamahusay na naglalarawan sa iyong kaalaman sa Citizen's Charter? <span class="text-red-500">*</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5 italic">Which of the following best describes your awareness of a CC?</p>
-                            
-                            <div class="space-y-3 text-sm mt-3 pl-2">
-                                <label class="flex items-start cursor-pointer">
-                                    <input type="radio" name="cc1" value="1" class="mt-1 mr-3 w-4 h-4 text-blue-600 shadow-xs" required disabled> 
-                                    <div>
-                                        <span class="block font-medium">Alam ko kung ano ang Citizen's Charter at nakita ko ito sa opisinang ito.</span>
-                                        <span class="block text-xs text-gray-500 mt-0.5 font-normal">I know what a CC is and I saw this office's CC.</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-start cursor-pointer">
-                                    <input type="radio" name="cc1" value="2" class="mt-1 mr-3 w-4 h-4 text-blue-600 shadow-xs" disabled> 
-                                    <div>
-                                        <span class="block font-medium">Alam ko kung ano ang Citizen's Charter ngunit hindi ko nakita ang sa opisinang ito.</span>
-                                        <span class="block text-xs text-gray-500 mt-0.5 font-normal">I know what a CC is but I did NOT see this office's CC.</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-start cursor-pointer">
-                                    <input type="radio" name="cc1" value="3" class="mt-1 mr-3 w-4 h-4 text-blue-600 shadow-xs" disabled> 
-                                    <div>
-                                        <span class="block font-medium">Nalaman ko ang tungkol sa Citizen's Charter nang makita ko ito sa opisinang ito.</span>
-                                        <span class="block text-xs text-gray-500 mt-0.5 font-normal">I learned of the CC only when I saw this office's CC.</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-start cursor-pointer">
-                                    <input type="radio" name="cc1" value="4" class="mt-1 mr-3 w-4 h-4 text-blue-600 shadow-xs" disabled> 
-                                    <div>
-                                        <span class="block font-medium">Hindi ko alam kung ano ang Citizen's Charter at hindi ko ito nakita sa opisinang ito. <span class="text-amber-700 font-semibold">(Awtomatikong magiging 'N/A' ang CC2 at CC3)</span></span>
-                                        <span class="block text-xs text-gray-500 mt-0.5 font-normal">I do not know what a CC is and I did not see one in this office. (CC2 and CC3 will automatically auto-select N/A)</span>
-                                    </div>
-                                </label>
+                        <div id="MVRS_section" style="display: none;" class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <h3 class="text-sm font-bold text-blue-900 mb-3 flex items-center">
+                                <span class="bg-blue-100 text-blue-800 w-6 h-6 inline-flex items-center justify-center rounded text-xs mr-2">MVRS</span>
+                                Motor Vehicle Registration Transactions
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold mb-1 text-slate-700">Common Transactions</label>
+                                    <select id="mvrs_common" name="mvrs_common" onchange="executeMvrsDependencyPipeline()" class="w-full p-2 border border-gray-300 rounded-md bg-white text-xs font-medium" disabled>
+                                        <option value="">-- Select MVRS Common Transaction --</option>
+                                        <option value="Initial Registration of New Motor Vehicles">Initial Registration of New Motor Vehicles</option>
+                                        <option value="Renewal of Motor Vehicle Registration">Renewal of Motor Vehicle Registration</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold mb-1 text-gray-600">Miscellaneous Transactions <span class="font-normal italic text-[10px] text-slate-400">(Hold Ctrl/Cmd to select multiple)</span></label>
+                                    <select id="mvrs_misc" name="mvrs_misc" multiple class="w-full p-2 border border-gray-300 rounded-md bg-white text-xs h-32 disabled:bg-slate-100 disabled:text-slate-400 font-medium" disabled>
+                                        <option value="Revisions of Motor Vehicle Records">Revisions of Motor Vehicle Records</option>
+                                        <option value="Annotation of Mortgage">Annotation of Mortgage</option>
+                                        <option value="Cancellation of Mortgage">Cancellation of Mortgage</option>
+                                        <option value="Change of Engine/Color/Body Design">Change of Engine/Color/Body Design</option>
+                                        <option value="Duplicate Certificate of Registration">Duplicate Certificate of Registration</option>
+                                        <option value="Transfer of Ownership">Transfer of Ownership</option>
+                                        <option value="Storage of Motor Vehicle">Storage of Motor Vehicle</option>
+                                        <option value="Inspection of Motor Vehicle">Inspection of Motor Vehicle</option>
+                                        <option value="Certification">Certification</option>
+                                        <option value="Restamping of Serial/Chassis Number">Restamping of Serial/Chassis Number</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="bg-slate-50 p-4 border border-slate-200 rounded-lg">
-                            <p class="text-sm font-bold text-slate-900">CC2. Kung may kaalaman sa Citizen's Charter (sumagot ng 1-3 sa CC1), masasabi mo ba na ang CC ng opisinang ito ay... ? <span class="text-red-500">*</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5 italic">If aware of CC (answered 1-3 in CC1), would you say that the CC of this office was ...?</p>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mt-3 pl-2">
-                                <label class="flex items-center cursor-pointer space-x-3">
-                                    <input type="radio" name="cc2" value="Easy to see" class="w-4 h-4 text-blue-600" required disabled>
-                                    <div>
-                                        <span class="block font-medium">Madaling makita</span>
-                                        <span class="block text-xs text-gray-400 font-normal">Easy to see</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-center cursor-pointer space-x-3">
-                                    <input type="radio" name="cc2" value="Somewhat easy to see" class="w-4 h-4 text-blue-600" disabled>
-                                    <div>
-                                        <span class="block font-medium">Medyo madaling makita</span>
-                                        <span class="block text-xs text-gray-400 font-normal">Somewhat easy to see</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-center cursor-pointer space-x-3">
-                                    <input type="radio" name="cc2" value="Difficult to see" class="w-4 h-4 text-blue-600" disabled>
-                                    <div>
-                                        <span class="block font-medium">Mahirap makita</span>
-                                        <span class="block text-xs text-gray-400 font-normal">Difficult to see</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-center cursor-pointer space-x-3">
-                                    <input type="radio" name="cc2" value="Not visible at all" class="w-4 h-4 text-blue-600" disabled>
-                                    <div>
-                                        <span class="block font-medium">Hindi nakikita kahit kailan</span>
-                                        <span class="block text-xs text-gray-400 font-normal">Not visible at all</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-center cursor-pointer space-x-3 sm:col-span-2">
-                                    <input type="radio" name="cc2" value="N/A" class="w-4 h-4 text-gray-400" disabled>
-                                    <div>
-                                        <span class="block font-medium text-gray-600">Hindi Patungkol (N/A)</span>
-                                        <span class="block text-xs text-gray-400 font-normal">N/A</span>
-                                    </div>
-                                </label>
+                        <div id="LES_section" style="display: none;" class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <h3 class="text-sm font-bold text-blue-900 mb-3 flex items-center">
+                                <span class="bg-blue-100 text-blue-800 w-6 h-6 inline-flex items-center justify-center rounded text-xs mr-2">LES</span>
+                                Law Enforcement Transactions
+                            </h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold mb-1 text-slate-700">Common Transactions <span class="font-normal italic text-[10px] text-slate-400">(Hold Ctrl/Cmd to select multiple)</span></label>
+                                    <select id="les_common" name="les_common" multiple class="w-full p-2 border border-gray-300 rounded-md bg-white text-xs h-28 font-medium" disabled>
+                                        <option value="Settlement of Apprehensions">Settlement of Apprehensions</option>
+                                        <option value="Contest of Traffic Violation Cases">Contest of Traffic Violation Cases</option>
+                                        <option value="Requesting a Certificate of No Apprehension">Requesting a Certificate of No Apprehension</option>
+                                        <option value="Seminar">Seminar</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="bg-slate-50 p-4 border border-slate-200 rounded-lg">
-                            <p class="text-sm font-bold text-slate-900">CC3. Kung may kaalaman sa Citizen's Charter (sumagot ng 1-3 sa CC1), gaano kalaki ang naitulong sa iyo ng CC sa iyong transaksyon? <span class="text-red-500">*</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5 italic">If aware of CC (answered codes 1-3 in CC1), how much did the CC help you in your transaction?</p>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mt-3 pl-2">
-                                <label class="flex items-center cursor-pointer space-x-3">
-                                    <input type="radio" name="cc3" value="Helped very much" class="w-4 h-4 text-blue-600" required disabled>
-                                    <div>
-                                        <span class="block font-medium">Lubos na nakatulong</span>
-                                        <span class="block text-xs text-gray-400 font-normal">Helped very much</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-center cursor-pointer space-x-3">
-                                    <input type="radio" name="cc3" value="Somewhat helped" class="w-4 h-4 text-blue-600" disabled>
-                                    <div>
-                                        <span class="block font-medium">Medyo nakatulong</span>
-                                        <span class="block text-xs text-gray-400 font-normal">Somewhat helped</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-center cursor-pointer space-x-3">
-                                    <input type="radio" name="cc3" value="Did not help" class="w-4 h-4 text-blue-600" disabled>
-                                    <div>
-                                        <span class="block font-medium">Hindi nakatulong</span>
-                                        <span class="block text-xs text-gray-400 font-normal">Did not help</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-center cursor-pointer space-x-3">
-                                    <input type="radio" name="cc3" value="N/A" class="w-4 h-4 text-gray-400" disabled>
-                                    <div>
-                                        <span class="block font-medium text-gray-600">Hindi Patungkol (N/A)</span>
-                                        <span class="block text-xs text-gray-400 font-normal">N/A</span>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- SECTION IV: EVALUATION DIMENSIONS GRID (SQD) -->
-                    <section class="bg-white p-2 rounded-lg relative">
-                        <div class="flex justify-between items-center border-b pb-2 mb-2">
-                            <h2 class="text-lg font-semibold text-blue-950">IV. Mga Dimensyon ng Kalidad ng Serbisyo <span class="text-sm font-normal text-gray-500">/ Service Quality Dimensions (SQD)</span></h2>
-                            <button type="button" onclick="clearSectionMatrix()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
-                        </div>
-                        <div class="bg-gray-100 p-3 rounded mb-4 text-xs flex justify-between items-center flex-wrap gap-2">
-                            <span class="font-medium text-gray-700">Gabay / Legend:</span>
-                            <div class="space-x-2 sm:space-x-4 text-gray-600">
-                                <span><strong>5</strong> = Lubos na Sumasang-ayon <span class="text-gray-400">(Strongly Agree)</span></span>
-                                <span><strong>1</strong> = Lubos na Hindi Sumasang-ayon <span class="text-gray-400">(Strongly Disagree)</span></span>
-                            </div>
-                        </div>
-                        
-                        <div class="overflow-x-auto border rounded-lg border-gray-200 shadow-sm">
-                            <table class="w-full text-left border-collapse text-sm">
-                                <thead>
-                                    <tr class="bg-blue-900 text-white border-b border-gray-200">
-                                        <th class="p-3 font-semibold w-1/2 text-xs uppercase tracking-wider">Mga Sukatan / Katanungan (Questions)</th>
-                                        <th class="p-3 text-center font-bold w-10">5</th>
-                                        <th class="p-3 text-center font-bold w-10">4</th>
-                                        <th class="p-3 text-center font-bold w-10">3</th>
-                                        <th class="p-3 text-center font-bold w-10">2</th>
-                                        <th class="p-3 text-center font-bold w-10">1</th>
-                                        <th class="p-3 text-center font-semibold w-12 text-xs">N/A</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="sqd_matrix_body" class="divide-y divide-gray-200 bg-white text-xs sm:text-sm">
-                                    <!-- Injected programmatically by the script configuration module below -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
-                    <!-- SECTION V: OPTIONAL COMMODITY FEEDBACK -->
-                    <section class="bg-white p-2 rounded-lg relative">
-                        <div class="flex justify-between items-center border-b pb-2 mb-4">
-                            <h2 class="text-lg font-semibold text-blue-950">V. Feedback / Komento</h2>
-                            <button type="button" onclick="clearSectionFeedback()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-1 text-slate-800">Mga mungkahi o komento para sa lalong ikabubuti ng aming serbisyo (Optional):</label>
-                            <p class="text-xs text-gray-500 mb-2 italic">Suggestions or comments to further improve our service:</p>
-                            <textarea id="feedback_textarea" name="feedback" class="w-full p-3 border border-gray-300 rounded-md h-24 focus:ring-blue-500 focus:border-blue-500 text-sm animate-none" placeholder="Isulat dito ang inyong feedback... / Write your feedback here..." disabled></textarea>
-                        </div>
-                    </section>
-
-                    <!-- MASTER OPERATIONS FOOTER STRIP -->
-                    <div class="pt-6 border-t border-gray-200 flex flex-col sm:flex-row gap-3">
-                        <button type="submit" id="btn_submit" class="w-full sm:w-auto bg-blue-700 hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-md transition duration-150 shadow-sm text-sm uppercase tracking-wide cursor-pointer" disabled>
-                            Ipadala / Submit Survey
-                        </button>
-                        <button type="button" onclick="executeGlobalFormReset()" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-6 py-3 rounded-md transition duration-150 text-sm uppercase tracking-wide cursor-pointer">
-                            🔄 Reset / Clear All
-                        </button>
                     </div>
-                </div> 
-            </form>
+                </section>
 
+                <section class="bg-white p-2 rounded-lg">
+                    <div class="flex justify-between items-center border-b pb-2 mb-4">
+                        <h2 class="text-lg font-semibold text-blue-950">III. Citizen's Charter (CC)</h2>
+                        <button type="button" onclick="clearSectionCharter()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
+                    </div>
+                    
+                    <div class="space-y-4 text-xs sm:text-sm">
+                        <div class="space-y-1">
+                            <label class="block font-bold text-slate-800 leading-tight">CC1. Alin sa mga sumusunod ang naglalarawan sa inyong kaalaman sa Citizen's Charter?</label>
+                            <select id="cc1" name="cc1" required class="w-full p-2 bg-white border rounded-lg focus:outline-none focus:border-blue-900 font-medium text-slate-700" disabled>
+                                <option value="1">1. Alam ko ang Citizen's Charter at nakita ko ito sa opisina na aking pinuntahan.</option>
+                                <option value="2">2. Alam ko ang Citizen's Charter pero hindi ko ito nakita sa opisina.</option>
+                                <option value="3">3. Nalaman ko ang Citizen's Charter nang makita ko ito sa opisina.</option>
+                                <option value="4">4. Hindi ko alam ang Citizen's Charter at wala akong nakita sa opisina.</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="block font-bold text-slate-800 leading-tight">CC2. Kung nakita mo ang Citizen's Charter, paano mo ilalarawan ang pagkakaposisyon nito?</label>
+                            <select id="cc2" name="cc2" required class="w-full p-2 bg-white border rounded-lg focus:outline-none focus:border-blue-900 font-medium text-slate-700" disabled>
+                                <option value="Easy to see">1. Madaling makita (Easy to see)</option>
+                                <option value="Somewhat easy to see">2. Medyo madaling makita (Somewhat easy to see)</option>
+                                <option value="Difficult to see">3. Mahirap makita (Difficult to see)</option>
+                                <option value="Not visible at all">4. Hindi nakikita (Not visible at all)</option>
+                                <option value="N/A">5. Hindi Applicable (N/A)</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="block font-bold text-slate-800 leading-tight">CC3. Kung nabasa mo ang Citizen's Charter, gaano ito nakatulong sa inyong transaksyon?</label>
+                            <select id="cc3" name="cc3" required class="w-full p-2 bg-white border rounded-lg focus:outline-none focus:border-blue-900 font-medium text-slate-700" disabled>
+                                <option value="Helped very much">1. Lubos na nakatulong (Helped very much)</option>
+                                <option value="Somewhat helped">2. Medyo nakatulong (Somewhat helped)</option>
+                                <option value="Did not help">3. Hindi nakatulong (Did not help)</option>
+                                <option value="N/A">4. Hindi Applicable (N/A)</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white p-2 rounded-lg">
+                    <div class="flex justify-between items-center border-b pb-1 mb-3">
+                        <h2 class="text-lg font-semibold text-blue-950">IV. Service Quality Dimensions (SQD)</h2>
+                        <button type="button" onclick="clearSectionSQD()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
+                    </div>
+                    <p class="text-[10px] text-gray-400 font-bold mb-3 uppercase tracking-wider">Scale Matrix: 1 (Strongly Disagree) to 5 (Strongly Agree)</p>
+
+                    <div id="sqd_rows_container" class="space-y-3">
+                        <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD1. Responsiveness</span></div>
+                            <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Masaya ako sa bilis ng pagsisilbi ng opisina na ito.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                        <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD2. Reliability</span></div>
+                            <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Nakuha ko ang tamang serbisyo na aking kailangan nang walang naging aberya.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                        <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD3. Access & Facilities</span></div>
+                            <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Malinis, maayos, at komportable ang mga upuan at kabuuang pasilidad ng opisina.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                        <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD4. Communication</span></div>
+                            <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Madaling intindihin, malinaw, at kumpleto ang mga impormasyon o karatula sa paligid.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                        <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD5. Costs</span></div>
+                            <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Sapat, makatarungan, at tama ang mga sinisingil na opisyal na bayarin ng pamahalaan.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                        <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD6. Integrity</span></div>
+                            <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Malinis ang transaksyon; walang nangyaring lagayan, pabor, o fixer sa aking paglakad.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                        <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD7. Assurance</span></div>
+                            <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Magalang, propesyonal, at maaasahan ang kawani (staff) na nag-asikaso sa akin ngayon.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                        <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD8. Outcome</span></div>
+                            <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Nasiyahan ako na natapos at nakuha ko ang aking pakay sa opisinang ito.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                        <div class="p-3 border border-blue-200 rounded-xl bg-blue-50/70 shadow-2xs">
+                            <div class="flex justify-between font-bold text-xs text-blue-900 mb-1"><span>SQD0. Pangkalahatang Kasiyahan</span></div>
+                            <p class="text-xs text-blue-950 font-medium mb-2 leading-tight">Sa pangkalahatan, ako ay lubos na nasisiyahan sa serbisyong ibinigay sa akin.</p>
+                            <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white p-2 rounded-lg">
+                    <div class="flex justify-between items-center border-b pb-2 mb-4">
+                        <h2 class="text-lg font-semibold text-blue-950">V. Mga Mungkahi, Puna o Komento</h2>
+                        <button type="button" onclick="clearSectionFeedback()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
+                    </div>
+                    <textarea id="feedback" name="feedback" rows="3" disabled placeholder="Isulat dito ang inyong puna o mungkahi upang lalo pa naming mapabuti ang serbisyo..." class="w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-blue-900 font-medium"></textarea>
+                </section>
+
+                <div class="pt-4 border-t border-gray-100 flex gap-4">
+                    <button type="button" onclick="resetSurveyForm()" class="px-6 py-3 border border-gray-300 text-gray-600 font-bold rounded-xl text-sm uppercase tracking-wider hover:bg-gray-50 transition cursor-pointer">
+                        Reset Form
+                    </button>
+                    <button type="submit" id="btn_submit" disabled class="flex-grow bg-blue-900 hover:bg-blue-800 text-white font-bold py-3.5 px-6 rounded-xl text-sm uppercase tracking-wider transition shadow-md cursor-pointer text-center disabled:bg-gray-300 disabled:cursor-not-allowed">
+                        Ipadala ang Survey / Submit Feedback
+                    </button>
+                </div>
+            </form>
         </div>
     </main>
 
-    <footer class="bg-gray-800 text-gray-400 text-xs py-5 text-center">
-        <p>&copy; 2026 Land Transportation Office - Region VI. All Rights Reserved.</p>
+    <footer class="bg-slate-900 text-slate-500 text-center py-3 text-[10px] border-t border-slate-950 font-mono shrink-0">
+        &copy; 2026 LTO Region VI. Clean Implementation Matrix.
     </footer>
 
-    <!-- SUPABASE CLIENT CORE CORE PRODUCTION PLATFORM -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/dist/umd/supabase.js"></script>
-    
+
     <script>
+        // ===================================================
+        // 1. SETTINGS & CONTEXT CONNECTIONS INITIALIZATION
+        // ===================================================
         const SUPABASE_URL = 'https://ytihiwpvmrbnvggiblih.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_txTDcMKNtRUpp4Hqb4b6jg_ZSudcxqM';
-        
-        let supabaseClient = null;
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        try {
-            if (typeof supabase !== 'undefined' && supabase.createClient) {
-                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log("Database Client loaded successfully.");
-            }
-        } catch (e) {
-            console.error("Initialization crash on runtime: ", e);
-        }
+        // Map today's local client system parameters into calendar row defaults
+        document.getElementById('date_of_visit').value = new Date().toISOString().split('T')[0];
 
-        // Complete set of DLS Miscellaneous Options for dynamic rendering pipelines
-        const masterDlsMiscOptionsArray = [
-            { value: "Conversion of Foreign driver's Licenses to Philippine License", text: "Conversion of Foreign driver's Licenses to Philippine License" },
-            { value: "Change of License Classification", text: "Change of License Classification" },
-            { value: "Additional License codes or License Categories", text: "Additional License codes or License Categories" },
-            { value: "Cancellation of License Code", text: "Cancellation of License Code" },
-            { value: "Replacement of Lost or Damaged driver's Licenses", text: "Replacement of Lost or Damaged driver's Licenses" },
-            { value: "Revision of License Record", text: "Revision of License Record" },
-            { value: "Requesting a Certificate of License Issuance", text: "Requesting a Certificate of License Issuance" }
-        ];
-
-        const sqdQuestions = [
-            { id: "sqd0", tag: "SQD0.", tl: "Lubos akong nasisiyahan sa kabuuang serbisyong aking natanggap.", en: "I am satisfied with the overall service that I availed." },
-            { id: "sqd1", tag: "SQD1.", tl: "Mabilis at maayos ang pagproseso ng aking transaksyon.", en: "The office provide service within a reasonable timeframe. (Responsiveness)" },
-            { id: "sqd2", tag: "SQD2.", tl: "Tama, maaasahan, at kumpleto ang serbisyong ibinigay ng opisina.", en: "The office followed the Citizen's Charter requirements and delivery. (Reliability)" },
-            { id: "sqd3", tag: "SQD3.", tl: "Malinis, ligtas, komportable, at madaling puntahan ang pasilidad.", en: "The location/site was convenient, clean, safe, and organized. (Access & Facilities)" },
-            { id: "sqd4", tag: "SQD4.", tl: "Madaling unawain at malinaw ang mga panuto, karatula, at impormasyon.", en: "Information was easy to find, clear, and easy to understand. (Communication)" },
-            { id: "sqd5", tag: "SQD5.", tl: "Makatarungan ang mga bayarin at madali ang mga pamamaraan ng pagbabayad.", en: "Official fees were fair, clear, and payments were efficient. (Costs)" },
-            { id: "sqd6", tag: "SQD6.", tl: "Tapat ang mga kawani at walang hininging anumang labis o ilegal na kapalit.", en: "The office values honesty; transactions were clean and fixer-free. (Integrity)" },
-            { id: "sqd7", tag: "SQD7.", tl: "Magalang, propesyonal, at may sapat na kaalaman ang mga kawaning naglingkod.", en: "Staff were polite, professional, and knowledgeable. (Assurance)" },
-            { id: "sqd8", tag: "SQD8.", tl: "Nakuha ko ang tamang resulta o dokumento na kailangan ko sa takdang oras.", en: "I obtained what I needed from the office, achieving the expected outcome. (Outcome)" }
-        ];
-
-        let isVerified = false;
-        const btnVerify = document.getElementById('btn_verify');
-        const controlNoInput = document.getElementById('control_no');
-        const lockableContainer = document.getElementById('survey_form_contents');
-        const statusMsg = document.getElementById('verify_status_msg');
-
-        document.addEventListener("DOMContentLoaded", () => {
-            
-            // Dynamic generation of matrix rows
-            const matrixBody = document.getElementById("sqd_matrix_body");
-            if (matrixBody) {
-                sqdQuestions.forEach(q => {
-                    const row = document.createElement("tr");
-                    row.className = "hover:bg-slate-50 transition";
-                    row.innerHTML = `
-                        <td class="p-4">
-                            <span class="block font-semibold text-slate-900">${q.tag} ${q.tl}</span>
-                            <span class="block text-xs text-gray-500 mt-0.5 italic">${q.en}</span>
-                        </td>
-                        <td class="p-3 text-center"><input type="radio" name="${q.id}" value="5" class="w-4 h-4 text-blue-600" required disabled></td>
-                        <td class="p-3 text-center"><input type="radio" name="${q.id}" value="4" class="w-4 h-4 text-blue-600" disabled></td>
-                        <td class="p-3 text-center"><input type="radio" name="${q.id}" value="3" class="w-4 h-4 text-blue-600" disabled></td>
-                        <td class="p-3 text-center"><input type="radio" name="${q.id}" value="2" class="w-4 h-4 text-blue-600" disabled></td>
-                        <td class="p-3 text-center"><input type="radio" name="${q.id}" value="1" class="w-4 h-4 text-blue-600" disabled></td>
-                        <td class="p-3 text-center"><input type="radio" name="${q.id}" value="0" class="w-4 h-4 text-gray-300" disabled></td>
-                    `;
-                    matrixBody.appendChild(row);
-                });
-            }
-
-            btnVerify.addEventListener('click', handleVerification);
-
-            // Dynamic parameter reading from QR entry urls
-            const urlParams = new URLSearchParams(window.location.search);
-            const codeParam = urlParams.get('code');
-            if (codeParam) {
-                controlNoInput.value = codeParam.trim().toUpperCase();
-                handleVerification(); 
-            }
-
-            // Bind constraints to Citizen Charter selection paths
-            const cc1RadioNodes = document.querySelectorAll('input[name="cc1"]');
-            cc1RadioNodes.forEach(radio => {
-                radio.addEventListener('change', evaluateCitizenCharterConstraints);
-            });
-
-            // Set main service visibility toggles
-            const mainServiceCheckboxes = document.querySelectorAll('input[name="main_service"]');
-            mainServiceCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', (e) => {
-                    const targetSection = document.getElementById(e.target.value + '_section');
-                    if (targetSection) {
-                        if (e.target.checked && isVerified) {
-                            targetSection.style.display = 'block';
-                            const primarySelect = targetSection.querySelector('select:not([multiple])');
-                            if(primarySelect) primarySelect.setAttribute('required', 'true');
-                        } else {
-                            targetSection.style.display = 'none';
-                            clearTargetSubSectionInputs(targetSection);
-                        }
+        // ===================================================
+        // 2. FORM INTERACTIVE VIEW SUBSYSTEM TOGGLES
+        // ===================================================
+        function togglePipelineView() {
+            const checkedBoxes = document.querySelectorAll('input[name="main_service"]');
+            checkedBoxes.forEach(cb => {
+                const targetSec = document.getElementById(`${cb.value}_section`);
+                if (targetSec) {
+                    if (cb.checked) {
+                        targetSec.style.display = 'block';
+                        // Enable inputs inside that specific sub-section row panel
+                        targetSec.querySelectorAll('select').forEach(el => el.removeAttribute('disabled'));
+                    } else {
+                        targetSec.style.display = 'none';
+                        // Clear choices and disable parameters on hide states
+                        targetSec.querySelectorAll('select').forEach(el => {
+                            el.value = "";
+                            el.setAttribute('disabled', 'true');
+                        });
                     }
-                });
-            });
-
-            // Initial option population tracking for DLS fields
-            populateDlsMiscOptionsList(masterDlsMiscOptionsArray);
-            
-            // Production Submit integration pipeline
-            document.querySelector('form').addEventListener('submit', handleFormSubmissionExecution);
-        });
-
-        // --- SECTIONAL CLEAR OPERATIONS INTERFACES ---
-        function clearSectionDemographics() {
-            document.getElementById('client_type').value = "";
-            document.getElementById('sex').value = "";
-            document.getElementById('age').value = "";
-            document.getElementById('office_visited').value = "";
-            document.getElementById('date_of_visit').value = "";
-        }
-
-        function clearSectionServices() {
-            const boxes = document.querySelectorAll('input[name="main_service"]');
-            boxes.forEach(cb => { cb.checked = false; });
-            
-            ['DLS_section', 'MVRS_section', 'LES_section'].forEach(id => {
-                const sec = document.getElementById(id);
-                if(sec) {
-                    sec.style.display = 'none';
-                    clearTargetSubSectionInputs(sec);
                 }
-            });
-        }
-
-        function clearTargetSubSectionInputs(sectionElement) {
-            const selects = sectionElement.querySelectorAll('select');
-            selects.forEach(select => {
-                if (select.multiple) {
-                    Array.from(select.options).forEach(opt => opt.selected = false);
-                } else {
-                    select.value = "";
-                }
-                select.removeAttribute('required');
-            });
-            // Fire layout checks to clean up children lists dependencies flags
-            if(sectionElement.id === 'DLS_section') executeDlsDependencyPipeline();
-            if(sectionElement.id === 'MVRS_section') executeMvrsDependencyPipeline();
-        }
-
-        function clearSectionCitizenCharter() {
-            ['cc1', 'cc2', 'cc3'].forEach(name => {
-                document.querySelectorAll(`input[name="${name}"]`).forEach(rad => { rad.checked = false; });
-            });
-            evaluateCitizenCharterConstraints();
-        }
-
-        function clearSectionMatrix() {
-            sqdQuestions.forEach(q => {
-                document.querySelectorAll(`input[name="${q.id}"]`).forEach(rad => { rad.checked = false; });
-            });
-        }
-
-        function clearSectionFeedback() {
-            document.getElementById('feedback_textarea').value = "";
-        }
-
-        // GLOBAL RESET ROUTINE
-        function executeGlobalFormReset() {
-            if(confirm("Sigurado ka ba na nais mong i-reset ang buong form?")) {
-                window.location.reload();
-            }
-        }
-
-        // --- RELATIONAL DEPENDENCY ENFORCEMENT ENGINE PIPELINES ---
-        function populateDlsMiscOptionsList(optionsArray) {
-            const dlsMiscSelect = document.getElementById('dls_misc');
-            if(!dlsMiscSelect) return;
-            dlsMiscSelect.innerHTML = '';
-            optionsArray.forEach(item => {
-                const opt = document.createElement('option');
-                opt.value = item.value;
-                opt.text = item.text;
-                dlsMiscSelect.appendChild(opt);
             });
         }
 
         function executeDlsDependencyPipeline() {
-            const dlsCommonValue = document.getElementById('dls_common').value;
-            const dlsMiscSelect = document.getElementById('dls_misc');
-            
-            if(!dlsMiscSelect) return;
-
-            // Rule 1: Student Permit Filters choices dynamically
-            if (dlsCommonValue === "Application for Student Permits") {
-                dlsMiscSelect.removeAttribute('disabled');
-                const filtered = masterDlsMiscOptionsArray.filter(opt => 
-                    opt.value.includes("Replacement") || 
-                    opt.value.includes("Revision") || 
-                    opt.value.includes("Certification")
-                );
-                populateDlsMiscOptionsList(filtered);
-            } 
-            // Rule 2: New License application chain completely disables misc options
-            else if (dlsCommonValue === "New Driver's or Conductor's License Applications") {
-                Array.from(dlsMiscSelect.options).forEach(opt => opt.selected = false);
-                dlsMiscSelect.setAttribute('disabled', 'true');
-                populateDlsMiscOptionsList(masterDlsMiscOptionsArray);
-            } 
-            // Rule 3: Renewal path restores all options
-            else if (dlsCommonValue === "Renewal of Driver's or Conductor's Licenses") {
-                dlsMiscSelect.removeAttribute('disabled');
-                populateDlsMiscOptionsList(masterDlsMiscOptionsArray);
-            }
-            // Fallback default state
-            else {
-                if(isVerified) dlsMiscSelect.removeAttribute('disabled');
-                populateDlsMiscOptionsList(masterDlsMiscOptionsArray);
-            }
+            // Placeholder hooks for custom cross-field requirements if needed later
         }
 
         function executeMvrsDependencyPipeline() {
-            const mvrsCommonValue = document.getElementById('mvrs_common').value;
-            const mvrsMiscSelect = document.getElementById('mvrs_misc');
-            
-            if(!mvrsMiscSelect) return;
-
-            // Rule 1: Initial Registration disables the miscellaneous selection field entirely
-            if (mvrsCommonValue === "Initial Registration of New Motor Vehicles") {
-                Array.from(mvrsMiscSelect.options).forEach(opt => opt.selected = false);
-                mvrsMiscSelect.setAttribute('disabled', 'true');
-            } 
-            // Rule 2: Renewal pathways restore baseline multi-select lookup operations
-            else if (mvrsCommonValue === "Renewal of Motor Vehicle Registration") {
-                if(isVerified) mvrsMiscSelect.removeAttribute('disabled');
-            }
-            else {
-                if(isVerified) mvrsMiscSelect.removeAttribute('disabled');
-            }
+            // Placeholder hooks for custom cross-field requirements if needed later
         }
 
-        function evaluateCitizenCharterConstraints() {
-            const cc1Selection = document.querySelector('input[name="cc1"]:checked');
-            const cc2Options = document.querySelectorAll('input[name="cc2"]');
-            const cc3Options = document.querySelectorAll('input[name="cc3"]');
+        // ===================================================
+        // 3. CODE VERIFICATION WITH AUTOMATED OFFICE PREFIX MATCHING
+        // ===================================================
+        document.getElementById('btn_verify').addEventListener('click', async () => {
+            const btn = document.getElementById('btn_verify');
+            const controlNo = document.getElementById('control_no').value.trim().toUpperCase();
 
-            if (cc1Selection && cc1Selection.value === "4") {
-                cc2Options.forEach(opt => { if(opt.value === "N/A") opt.checked = true; });
-                cc3Options.forEach(opt => { if(opt.value === "N/A") opt.checked = true; });
+            if (!controlNo) { 
+                alert("Paki-sulat muna ang inyong Control Number."); 
+                return; 
+            }
 
-                cc2Options.forEach(opt => { if(opt.value !== "N/A") opt.disabled = true; });
-                cc3Options.forEach(opt => { if(opt.value !== "N/A") opt.disabled = true; });
-            } else {
-                if (isVerified) {
-                    cc2Options.forEach(opt => opt.removeAttribute('disabled'));
-                    cc3Options.forEach(opt => opt.removeAttribute('disabled'));
+            btn.disabled = true; 
+            btn.innerText = "Sinusuri...";
+
+            try {
+                // Interrogates the verification numbers ledger row safely
+                const { data, error } = await supabaseClient
+                    .from('valid_control_numbers')
+                    .select('*')
+                    .eq('control_code', controlNo);
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    alert("Hindi valid ang Control Number na ito. Paki-puna kung tama ang pagkakasulat.");
+                    btn.disabled = false; 
+                    btn.innerText = "I-verify ang Control Code";
+                    return;
                 }
+
+                const tokenRecord = data[0];
+                if (tokenRecord.status === 'used') {
+                    alert("Ang Control Number na ito ay nagamit na.");
+                    btn.disabled = false; 
+                    btn.innerText = "I-verify ang Control Code";
+                    return;
+                }
+
+                // UNVEIL STATUS CONFIRMATIONS
+                alert("Valid ang Control Number! Awtomatikong hinahanap ang inyong Opisina...");
+                btn.innerText = "Verified ✓";
+                btn.className = "w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-xs uppercase tracking-wider transition cursor-not-allowed text-center shadow-md";
+
+                // AUTOMATED EXTRACTION LOOP: Slices the first two positions out of the code string token
+                const derivedOfficeCode = controlNo.substring(0, 2);
+                
+                const { data: officeData, error: officeError } = await supabaseClient
+                    .from('offices')
+                    .select('office_name')
+                    .eq('office_code', derivedOfficeCode);
+
+                if (!officeError && officeData && officeData.length > 0) {
+                    document.getElementById('office_name_display').value = officeData[0].office_name;
+                } else {
+                    document.getElementById('office_name_display').value = "LTO Office Code: " + derivedOfficeCode;
+                }
+
+                // ENABLE ALL FORM ELEMENTS GLOBALLY
+                document.getElementById('csm_survey_form').querySelectorAll('input, select, textarea, button').forEach(el => {
+                    el.removeAttribute('disabled');
+                });
+                
+                // Re-sync sub-panels layout layers context options parameters state visibility updates
+                togglePipelineView();
+
+            } catch (err) {
+                console.error("Verification error exception caught:", err.message);
+                alert("May naganap na error sa pag-verify. Subukan muli.");
+                btn.disabled = false; 
+                btn.innerText = "I-verify ang Control Code";
+            }
+        });
+
+        // ===================================================
+        // 4. MANUAL CLEARING MODULE HANDLERS BY SECTION
+        // ===================================================
+        function clearSectionDemographics() {
+            document.getElementById('client_type').value = "Citizen";
+            document.getElementById('sex').value = "Male";
+            document.getElementById('age').value = "";
+            document.getElementById('date_of_visit').value = new Date().toISOString().split('T')[0];
+        }
+
+        function clearSectionServices() {
+            document.querySelectorAll('input[name="main_service"]').forEach(cb => cb.checked = false);
+            document.getElementById('dls_common').value = "";
+            document.getElementById('dls_misc').value = "";
+            document.getElementById('mvrs_common').value = "";
+            document.getElementById('mvrs_misc').value = "";
+            document.getElementById('les_common').value = "";
+            togglePipelineView();
+        }
+
+        function clearSectionCharter() {
+            document.getElementById('cc1').value = "1";
+            document.getElementById('cc2').value = "Easy to see";
+            document.getElementById('cc3').value = "Helped very much";
+        }
+
+        function clearSectionSQD() {
+            document.getElementById('csm_survey_form').querySelectorAll('input[type="radio"]').forEach(rad => rad.checked = false);
+        }
+
+        function clearSectionFeedback() {
+            document.getElementById('feedback').value = "";
+        }
+
+        function resetSurveyForm() {
+            if (confirm("Sigurado ka ba na nais mong linisin ang buong form?")) {
+                document.getElementById('csm_survey_form').reset();
+                document.getElementById('date_of_visit').value = new Date().toISOString().split('T')[0];
+                togglePipelineView();
             }
         }
 
-        // UNLOCK FORMS FLOW
-        function unlockForm() {
-            isVerified = true;
-            lockableContainer.classList.remove('opacity-40', 'pointer-events-none');
-            statusMsg.className = "block text-[11px] font-bold text-green-600 mt-2";
-            statusMsg.innerText = "🔓 Tanggap: Valid Control Number. Maaari mo nang sagutan ang form sa ibaba.";
-            controlNoInput.classList.add('border-green-500', 'bg-green-50');
-            controlNoInput.readOnly = true;
-            btnVerify.disabled = true;
-            btnVerify.className = "bg-green-600 text-white font-bold px-4 rounded-md text-xs uppercase tracking-wider";
-            btnVerify.innerText = "Verified ✓";
-
-            const fields = lockableContainer.querySelectorAll('input, select, textarea, button');
-            fields.forEach(field => field.removeAttribute('disabled'));
-            
-            evaluateCitizenCharterConstraints();
-            executeDlsDependencyPipeline();
-            executeMvrsDependencyPipeline();
-        }
-
-        // DATABASE GATEWAY ROUTINE CHECK
-        async function handleVerification() {
-            if (!supabaseClient) {
-                alert("System Connection Error: Hindi nakakonekta sa database.");
-                return;
-            }
-
-            const cleanedCode = controlNoInput.value.replace(/\s+/g, '').trim().toUpperCase();
-            if (!cleanedCode) {
-                alert("Mangyaring maglagay muna ng Control Number.");
-                return;
-            }
-
-            btnVerify.disabled = true;
-            btnVerify.innerText = "Checking...";
-
-            const { data: validCode, error: verifyError } = await supabaseClient
-                .from('valid_control_numbers')
-                .select('*')
-                .eq('control_code', cleanedCode)
-                .maybeSingle();
-
-            if (verifyError || !validCode) {
-                alert("Mali o hindi mahanap ang Control Number. Mangyaring suriin ang inyong inilagay. [or Basi wala internet!]");
-                btnVerify.disabled = false;
-                btnVerify.innerText = "I-verify Code";
-                return;
-            }
-
-            if (validCode.status === 'used') {
-                alert("Ang Control Number na ito ay nagamit na para sa isang survey.");
-                btnVerify.disabled = false;
-                btnVerify.innerText = "I-verify Code";
-                return;
-            }
-
-            unlockForm();
-        }
-
-        // DATA POST SUBMISSION LOGIC DISPATCHER ROUTINE
-        async function handleFormSubmissionExecution(e) {
+        // ===================================================
+        // 5. DATA LEAF RECONSTRUCTION & SUBMISSION ROUTINE
+        // ===================================================
+        document.getElementById('csm_survey_form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
+            const formEl = e.target;
             const submitBtn = document.getElementById('btn_submit');
+            const controlNo = document.getElementById('control_no').value.trim().toUpperCase();
+
+            if (!controlNo) {
+                alert("Paki-sulat at i-verify muna ang inyong Control Number sa itaas.");
+                return;
+            }
+
             submitBtn.disabled = true;
             submitBtn.innerText = "Pinoproseso...";
 
-            const controlNo = controlNoInput.value.replace(/\s+/g, '').trim().toUpperCase();
-            const formData = new FormData(e.target);
-            
+            const formData = new FormData(formEl);
+
+            // Harvest values from array sets variables matching selections
+            const mainServices = formData.getAll('main_service');
+            if (mainServices.length === 0) {
+                alert("Paki-pili ang serbisyong inyong nakuha sa Bahagi II bago ipadala ang survey.");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Ipadala ang Survey / Submit Feedback";
+                return;
+            }
+
+            // Maps parameters context keys safely matching backend requirements exactly
             const payload = {
                 control_code: controlNo,
                 client_type: formData.get('client_type'),
                 sex: formData.get('sex'),
                 age: parseInt(formData.get('age'), 10),
-                office_visited: formData.get('office_visited'),
-                date_of_visit: formData.get('date_of_visit'),
                 
-                main_services: formData.getAll('main_service'),
+                // 🚨 LOCK RULE BIND: Extracts 2-digit index code parameter representation automatically
+                office_visited: controlNo.substring(0, 2),
+                
+                date_of_visit: formData.get('date_of_visit'),
+                main_services: mainServices,
+                
                 dls_common: formData.get('dls_common') || null,
                 dls_misc: formData.getAll('dls_misc').join(', ') || null,
                 mvrs_common: formData.get('mvrs_common') || null,
@@ -774,26 +584,28 @@
                 feedback: formData.get('feedback') || null
             };
 
+            // Post new response row directly into database
             const { error: insertError } = await supabaseClient
                 .from('survey_responses')
                 .insert([payload]);
 
             if (insertError) {
                 console.error("Database Rejection:", insertError.message);
-                alert("May naganap na error sa pagtatala ng sagot.");
+                alert("May naganap na error sa pagtatala ng sagot: " + insertError.message);
                 submitBtn.disabled = false;
-                submitBtn.innerText = "Ipadala / Submit Survey";
+                submitBtn.innerText = "Ipadala ang Survey / Submit Feedback";
                 return;
             }
 
+            // Lock validation status track value map to prevent duplication
             await supabaseClient
                 .from('valid_control_numbers')
                 .update({ status: 'used' })
                 .eq('control_code', controlNo);
 
             alert("Salamat! Matagumpay na naipadala ang iyong survey.");
-            window.location.reload(); 
-        }
+            window.location.reload();
+        });
     </script>
 </body>
 </html>
