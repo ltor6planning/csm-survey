@@ -54,9 +54,10 @@
                         <div class="space-y-1.5">
                             <label class="block font-bold text-slate-700">Kasarian (Sex) <span class="text-red-500">*</span></label>
                             <select id="sex" name="sex" required class="w-full p-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-900" disabled>
+                                <option value="NI">Hindi Sasabihin / NI</option>
                                 <option value="Male">Lalake / Male</option>
                                 <option value="Female">Babae / Female</option>
-                                <option value="NI">Hindi Sasabihin / NI</option>
+
                             </select>
                         </div>
                         <div class="space-y-1.5">
@@ -499,7 +500,7 @@
         // ===================================================
         function clearSectionDemographics() {
             document.getElementById('client_type').value = "Citizen";
-            document.getElementById('sex').value = "Male";
+            document.getElementById('sex').value = "NI";
             document.getElementById('age').value = "";
             document.getElementById('date_of_visit').value = new Date().toISOString().split('T')[0];
         }
