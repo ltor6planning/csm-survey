@@ -13,7 +13,7 @@
             <img width="80" alt="LTO Shield" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Land_Transportation_Office.svg/500px-Land_Transportation_Office.svg.png">
             <div>
                 <h1 class="text-xl font-bold tracking-wide uppercase leading-none md:text-2xl">Land Transportation Office</h1>
-                <p class="text-xs text-blue-200 font-medium mt-1">Region VI - Western Visayas | Client Satisfaction Measurement (CSM)</p>
+                <p class="text-xl text-blue-200 font-medium mt-1">Region VI - Western Visayas | Client Satisfaction Measurement (CSM)</p>
             </div>
         </div>
     </header>
@@ -23,13 +23,13 @@
             
             <div id="verification_panel" class="bg-amber-50 border-2 border-amber-200 p-5 rounded-xl space-y-3 shadow-xs">
                 <div>
-                    <h2 class="text-sm font-black text-amber-950 uppercase tracking-wider mb-1">Paki-sulat ang inyong Control Number:</h2>
-                    <p class="text-xs text-amber-800 leading-tight font-medium">Ito ay ang tracking string token na ibinigay sa inyo ng Releasing Officer.</p>
+                    <h2 class="text-sm font-black text-amber-950 uppercase tracking-wider mb-1">Enter Control Number:</h2>
+                    <p class="text-xs text-amber-800 leading-tight font-medium">Ito ay ang numerong ibinigay sa inyo ng Releasing Officer.</p>
                 </div>
                 <div class="flex flex-col gap-3 w-full">
                     <input type="text" id="control_no" name="control_no" required maxlength="15" placeholder="e.g. 26-20260702-001" class="w-full p-3 font-mono text-lg font-bold border-2 border-amber-300 rounded-lg tracking-widest bg-white uppercase text-slate-900 focus:outline-none focus:border-amber-500 text-center shadow-inner">
                     <button type="button" id="btn_verify" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-lg text-xs uppercase tracking-wider transition cursor-pointer text-center shadow-md">
-                        I-verify ang Control Code
+                        Verify Control Number
                     </button>
                 </div>
             </div>
@@ -57,7 +57,6 @@
                                 <option value="NI">Hindi Sasabihin / NI</option>
                                 <option value="Male">Lalake / Male</option>
                                 <option value="Female">Babae / Female</option>
-
                             </select>
                         </div>
                         <div class="space-y-1.5">
@@ -74,7 +73,7 @@
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide">Opisinang Pinuntahan / Office Visited:</label>
                         <input type="text" id="office_name_display" readonly 
                                class="w-full p-2.5 bg-gray-100 text-slate-700 font-bold border border-gray-300 rounded-lg shadow-inner cursor-not-allowed text-xs sm:text-sm" 
-                               placeholder="Awtomatikong lalabas dito ang pangalan ng opisina pagkatapos i-verify ang Code...">
+                               placeholder="Office name will come up automatically with a verified number...">
                     </div>
                 </section>
 
@@ -230,106 +229,106 @@
                         <h2 class="text-lg font-semibold text-blue-950">IV. Service Quality Dimensions (SQD)</h2>
                         <button type="button" onclick="clearSectionSQD()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider transition cursor-pointer">✕ Clear Section</button>
                     </div>
-                    <p class="text-[10px] text-gray-400 font-bold mb-3 uppercase tracking-wider">Scale Matrix: 1 (Strongly Disagree) to 5 (Strongly Agree)</p>
+                    <p class="text-[13px] text-gray-800 font-bold mb-3 uppercase tracking-wider">Scale Matrix: 1 (Strongly Disagree) to 5 (Strongly Agree)</p>
 
                     <div id="sqd_rows_container" class="space-y-3">
                         <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD1. Responsiveness</span></div>
+                            <div class="flex justify-between font-bold text-xm text-slate-700 mb-1"><span>SQD1. Responsiveness</span></div>
                             <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Masaya ako sa bilis ng pagsisilbi ng opisina na ito.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd1" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                         <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD2. Reliability</span></div>
+                            <div class="flex justify-between font-bold text-xm text-slate-700 mb-1"><span>SQD2. Reliability</span></div>
                             <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Nakuha ko ang tamang serbisyo na aking kailangan nang walang naging aberya.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd2" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                         <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD3. Access & Facilities</span></div>
+                            <div class="flex justify-between font-bold text-xm text-slate-700 mb-1"><span>SQD3. Access & Facilities</span></div>
                             <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Malinis, maayos, at komportable ang mga upuan at kabuuang pasilidad ng opisina.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd3" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                         <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD4. Communication</span></div>
+                            <div class="flex justify-between font-bold text-xm text-slate-700 mb-1"><span>SQD4. Communication</span></div>
                             <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Madaling intindihin, malinaw, at kumpleto ang mga impormasyon o karatula sa paligid.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd4" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                         <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD5. Costs</span></div>
+                            <div class="flex justify-between font-bold text-xm text-slate-700 mb-1"><span>SQD5. Costs</span></div>
                             <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Sapat, makatarungan, at tama ang mga sinisingil na opisyal na bayarin ng pamahalaan.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd5" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                         <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD6. Integrity</span></div>
+                            <div class="flex justify-between font-bold text-xm text-slate-700 mb-1"><span>SQD6. Integrity</span></div>
                             <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Malinis ang transaksyon; walang nangyaring lagayan, pabor, o fixer sa aking paglakad.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd6" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                         <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD7. Assurance</span></div>
+                            <div class="flex justify-between font-bold text-xm text-slate-700 mb-1"><span>SQD7. Assurance</span></div>
                             <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Magalang, propesyonal, at maaasahan ang kawani (staff) na nag-asikaso sa akin ngayon.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd7" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                         <div class="p-3 border border-gray-200 rounded-xl bg-white shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-slate-700 mb-1"><span>SQD8. Outcome</span></div>
+                            <div class="flex justify-between font-bold text-xm text-slate-700 mb-1"><span>SQD8. Outcome</span></div>
                             <p class="text-xs text-gray-600 font-medium mb-2 leading-tight">Nasiyahan ako na natapos at nakuha ko ang aking pakay sa opisinang ito.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded bg-slate-50"><input type="radio" name="sqd8" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                         <div class="p-3 border border-blue-200 rounded-xl bg-blue-50/70 shadow-2xs">
-                            <div class="flex justify-between font-bold text-xs text-blue-900 mb-1"><span>SQD0. Pangkalahatang Kasiyahan</span></div>
+                            <div class="flex justify-between font-bold text-xm text-blue-900 mb-1"><span>SQD0. Overall Satisfaction</span></div>
                             <p class="text-xs text-blue-950 font-medium mb-2 leading-tight">Sa pangkalahatan, ako ay lubos na nasisiyahan sa serbisyong ibinigay sa akin.</p>
                             <div class="grid grid-cols-5 gap-1 text-center font-mono text-xs font-bold">
-                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="1" required disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">1</span></label>
-                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="2" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">2</span></label>
-                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="3" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">3</span></label>
-                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="4" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">4</span></label>
-                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="5" disabled class="mx-auto"><span class="text-[9px] font-normal text-gray-400 mt-0.5">5</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="1" required disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">1</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="2" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">2</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="3" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">3</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="4" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">4</span></label>
+                                <label class="flex flex-col p-1 border rounded border-blue-100 bg-white"><input type="radio" name="sqd0" value="5" disabled class="mx-auto"><span class="text-[14px] font-normal text-gray-800 mt-0.5">5</span></label>
                             </div>
                         </div>
                     </div>
@@ -348,7 +347,7 @@
                         Reset Form
                     </button>
                     <button type="submit" id="btn_submit" disabled class="flex-grow bg-blue-900 hover:bg-blue-800 text-white font-bold py-3.5 px-6 rounded-xl text-sm uppercase tracking-wider transition shadow-md cursor-pointer text-center disabled:bg-gray-300 disabled:cursor-not-allowed">
-                        Ipadala ang Survey / Submit Feedback
+                        Submit Response
                     </button>
                 </div>
             </form>
@@ -432,12 +431,12 @@
             const controlNo = document.getElementById('control_no').value.trim().toUpperCase();
 
             if (!controlNo) { 
-                alert("Paki-sulat muna ang inyong Control Number."); 
+                alert("Please Enter a Valid Control Number."); 
                 return; 
             }
 
             btn.disabled = true; 
-            btn.innerText = "Sinusuri...";
+            btn.innerText = "Analyzing...";
 
             try {
                 const { data, error } = await supabaseClient
@@ -448,21 +447,21 @@
                 if (error) throw error;
 
                 if (!data || data.length === 0) {
-                    alert("Hindi valid ang Control Number na ito. Paki-puna kung tama ang pagkakasulat.");
+                    alert("Invalid Control Number...");
                     btn.disabled = false; 
-                    btn.innerText = "I-verify ang Control Code";
+                    btn.innerText = "Verify Control Number";
                     return;
                 }
 
                 const tokenRecord = data[0];
                 if (tokenRecord.status === 'used') {
-                    alert("Ang Control Number na ito ay nagamit na.");
+                    alert("This Control Number is already used.");
                     btn.disabled = false; 
-                    btn.innerText = "I-verify ang Control Code";
+                    btn.innerText = "Verify Control Number";
                     return;
                 }
 
-                alert("Valid ang Control Number! Awtomatikong hinahanap ang pangalan ng inyong Opisina...");
+                //alert("Valid ang Control Number! Awtomatikong hinahanap ang pangalan ng inyong Opisina...");
                 btn.innerText = "Verified ✓";
                 btn.className = "w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-xs uppercase tracking-wider transition cursor-not-allowed text-center shadow-md";
 
@@ -489,9 +488,9 @@
 
             } catch (err) {
                 console.error("Verification error exception caught:", err.message);
-                alert("May naganap na error sa pag-verify. Subukan muli.");
+                alert("Verification error. Try again.");
                 btn.disabled = false; 
-                btn.innerText = "I-verify ang Control Code";
+                btn.innerText = "Verify Control Number";
             }
         });
 
@@ -532,7 +531,7 @@
         }
 
         function resetSurveyForm() {
-            if (confirm("Sigurado ka ba na nais mong linisin ang buong form?")) {
+            if (confirm("Click OK to clear the form?")) {
                 document.getElementById('csm_survey_form').reset();
                 document.getElementById('date_of_visit').value = new Date().toISOString().split('T')[0];
                 document.getElementById('cc2').disabled = false;
@@ -552,7 +551,7 @@
             const controlNo = document.getElementById('control_no').value.trim().toUpperCase();
 
             if (!controlNo) {
-                alert("Paki-sulat at i-verify muna ang inyong Control Number sa itaas.");
+                alert("Enter and verify Control Number above.");
                 return;
             }
 
@@ -623,6 +622,18 @@
 
             alert("Salamat! Matagumpay na naipadala ang iyong survey.");
             window.location.reload();
+
+        });
+
+        // Instant evaluation listener that alerts the user as they type
+        document.getElementById('age').addEventListener('input', function() {
+            const val = parseInt(this.value, 10);
+            if (val && val < 16) {
+                this.setCustomValidity("Age must be 16 or above.");
+                this.reportValidity();
+            } else {
+                this.setCustomValidity("");
+            }
         });
     </script>
 </body>
