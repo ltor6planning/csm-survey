@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTO Region VI - MV Inspection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen p-4 lg:p-6">
+
+<div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+    <header class="bg-blue-900 text-white p-5 border-b border-blue-950 flex justify-between items-center">
+        <h1 class="text-xl font-black uppercase tracking-wide">MV Inspection Module</h1>
+    </header>
+
+    <form id="inspection_form" onsubmit="handleInspectionSubmission(event)" class="p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-4">
+            <h3 class="text-xs font-black uppercase text-slate-700 border-b pb-1">Vehicle Details</h3>
+            <div><label class="block text-[10px] font-bold text-slate-500 uppercase">MV File No.</label><input type="text" id="mv_file_no" required class="w-full border border-slate-300 rounded p-2 text-sm font-mono"></div>
+            <div><label class="block text-[10px] font-bold text-slate-500 uppercase">Plate Number</label><input type="text" id="plate_no" required class="w-full border border-slate-300 rounded p-2 text-sm font-mono"></div>
+            <div><label class="block text-[10px] font-bold text-slate-500 uppercase">Inspection Date</label><input type="date" id="inspection_date" required class="w-full border border-slate-300 rounded p-2 text-sm font-mono"></div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-4">
+            <h3 class="text-xs font-black uppercase text-slate-700 border-b pb-1">Classification</h3>
+            <select id="classification" onchange="executeDenominationClientFilter()" class="w-full border border-slate-300 rounded p-2 text-sm font-bold">
+                <option value="Private">Private</option><option value="Government">Government</option>
+                <option value="ForHire">For Hire</option><option value="Diplomat">Diplomat</option><option value="Exempt">Exempt</option>
+            </select>
+            <h3 class="text-xs font-black uppercase text-slate-700 pt-2 border-b pb-1">Denomination</h3>
+            <input type="text" id="deno_search_input" oninput="executeDenominationClientFilter()" placeholder="🔎 Search..." class="w-full border border-slate-300 rounded p-2 text-sm font-mono">
+            <div id="deno_listbox_container" class="h-32 overflow-y-auto border rounded-lg shadow-inner text-xs"></div>
+            <input type="hidden" id="deno_code_fk" name="deno_code_fk">
+        </div>
+
+        <div class="space-y-4">
+            <div id="fuel_year_container" class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3.5">
+                <h3 class="text-xs font-black text-slate-700 tracking-wide uppercase border-b pb-1">Fuel</h3>
+                    <div class="grid grid-cols-2 gap-1 text-xs font-semibold text-slate-600">
+                        <label class="flex items-center space-x-1"><input type="radio" id="fuel_gas" name="fuel" value="Gas" class="disabled:cursor-not-allowed cursor-pointer"> <span>Gas</span></label>
+                        <label class="flex items-center space-x-1"><input type="radio" id="fuel_diesel" name="fuel" value="Diesel" checked class="disabled:cursor-not-allowed cursor-pointer"> <span>Diesel</span></label>
+                        <label class="flex items-center space-x-1"><input type="radio" id="fuel_cng" name="fuel" value="CNG" class="disabled:cursor-not-allowed cursor-pointer"> <span>CNG</span></label>
+                        <label class="flex items-center space-x-1"><input type="radio" id="fuel_lpg" name="fuel" value="LPG" class="disabled:cursor-not-allowed cursor-pointer"> <span>LPG</span></label>
+                        <label class="flex items-center space-x-1"><input type="radio" id="fuel_bev"name="fuel" value="BEV" class="disabled:cursor-not-allowed cursor-pointer"> <span>BEV</span></label>
+                        <label class="flex items-center space-x-1"><input type="radio" id="fuel_hev" name="fuel" value="HEV" class="disabled:cursor-not-allowed cursor-pointer"> <span>HEV</span></label>
+                    </div>
+                <h3 class="text-xs font-black text-slate-700 tracking-wide uppercase border-b pb-1">Year Model</h3>
+                    <div class="pt-2 border-t border-slate-100 space-y-2">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-slate-500">Year:</span>
+                            <input type="text" id="year_model" value="2026" oninput="evaluateYearModelConstraintsPipeline()" class="w-24 text-center bg-slate-50 border border-slate-300 rounded p-1 font-mono font-bold text-slate-800 focus:outline-none focus:border-blue-600 disabled:cursor-not-allowed">
+                        </div>
+                    </div>
+            </div>
+
+            <h3 class="text-xs font-black text-slate-700 tracking-wide uppercase border-b pb-1">ROADWORTHINESS</h3>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2 text-[10px] font-bold text-slate-600">
+                <label class="flex items-center"><input type="checkbox" id="emission_status" onchange="updateInspectionStatus()" class="mr-2"> EMISSION</label>
+                <label class="flex items-center"><input type="checkbox" id="brake_status" onchange="updateInspectionStatus()" class="mr-2"> BRAKES</label>
+                <label class="flex items-center"><input type="checkbox" id="light_status" onchange="updateInspectionStatus()" class="mr-2"> LIGHTS</label>
+                <label class="flex items-center"><input type="checkbox" id="stencil_status" onchange="updateInspectionStatus()" class="mr-2"> STENCIL</label>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 text-slate-100 p-5 rounded-2xl shadow-lg">
+            <h3 class="text-xs font-black text-amber-400 uppercase tracking-widest">Inspection Status</h3>
+            <div id="status_indicator" class="my-4 p-3 rounded font-black text-center bg-slate-800 text-slate-400">PENDING</div>
+            <button type="submit" class="w-full bg-emerald-600 p-3 rounded-xl font-bold uppercase text-xs">Save Inspection</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const SUPABASE_URL = 'https://ytihiwpvmrbnvggiblih.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_txTDcMKNtRUpp4Hqb4b6jg_ZSudcxqM';
+    let masterDenominationsCollection = [];
+    let globallySelectedCode = null;
+
+    async function init() {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/deno?select=*`, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }});
+        const data = await res.json();
+        masterDenominationsCollection = data.map(r => ({ code: r.code, group: r.vehicle_group, title: r.title, subTitle: r.subtitle, rate: r.rate, dClass: r.d_class }));
+        document.getElementById('inspection_date').valueAsDate = new Date();
+        executeDenominationClientFilter();
+    }
+
+    function selectDenominationRecordNode(item) {
+        globallySelectedCode = item.code;
+        document.getElementById('deno_code_fk').value = item.code;
+        // Default to Gas if Motorcycle
+        if (item.group === "Motorcycle") {
+            document.querySelector('input[name="fuel"][value="Gas"]').checked = true;
+        }
+        executeDenominationClientFilter();
+    }
+
+    function executeDenominationClientFilter() {
+        const query = document.getElementById('deno_search_input').value.toLowerCase();
+        const classification = document.getElementById('classification').value;
+        const container = document.getElementById('deno_listbox_container');
+        container.innerHTML = '';
+        
+        const classMap = { 'Private': 'P', 'Government': 'G', 'ForHire': 'H', 'Diplomat': 'D', 'Exempt': 'E' };
+        const target = classMap[classification] || 'P';
+        
+        masterDenominationsCollection.filter(i => i.dClass.includes(target) && i.title.toLowerCase().includes(query)).forEach(item => {
+            const div = document.createElement('div');
+            div.className = `p-2 cursor-pointer text-xs ${globallySelectedCode === item.code ? 'bg-blue-600 text-white' : 'hover:bg-slate-50'}`;
+            div.innerText = `${item.title} (${item.subTitle})`;
+            div.onclick = () => selectDenominationRecordNode(item);
+            container.appendChild(div);
+        });
+    }
+
+    function updateInspectionStatus() {
+        const checks = document.querySelectorAll('input[type="checkbox"]');
+        const allChecked = Array.from(checks).every(c => c.checked);
+        const indicator = document.getElementById('status_indicator');
+        indicator.innerText = allChecked ? "PASSED" : "FAILED / INCOMPLETE";
+        indicator.className = `my-4 p-3 rounded font-black text-center ${allChecked ? "bg-emerald-500 text-white" : "bg-red-500 text-white"}`;
+    }
+
+    async function handleInspectionSubmission(event) {
+        event.preventDefault();
+        const payload = {
+            mv_file_no: document.getElementById('mv_file_no').value,
+            plate_no: document.getElementById('plate_no').value,
+            inspection_date: document.getElementById('inspection_date').value,
+            classification: document.getElementById('classification').value,
+            deno_code_fk: parseInt(document.getElementById('deno_code_fk').value),
+            fuel: document.querySelector('input[name="fuel"]:checked').value,
+            year_model: parseInt(document.getElementById('year_model').value),
+            emission_status: document.getElementById('emission_status').checked,
+            stencil_status: document.getElementById('stencil_status').checked,
+            brake_status: document.getElementById('brake_status').checked,
+            light_status: document.getElementById('light_status').checked,
+            passing_status: document.getElementById('status_indicator').innerText
+        };
+
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/mv_inspection`, {
+            method: 'POST',
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) { alert("Recorded!"); location.reload(); }
+    }
+
+    init();
+</script>
+</body>
+</html>
