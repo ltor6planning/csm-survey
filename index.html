@@ -15,6 +15,7 @@
                 <h1 class="text-xl font-bold tracking-wide uppercase leading-none md:text-2xl">Land Transportation Office</h1>
                 <p class="text-xl text-blue-200 font-medium mt-1">Region VI - Western Visayas | Client Satisfaction Measurement (CSM)</p>
             </div>
+            <!-- Station Code badge and Log Out button intentionally omitted: this is the public, no-login client-encoded version -->
         </div>
     </header>
 
@@ -194,10 +195,10 @@
                         <div class="space-y-1">
                             <label class="block font-bold text-slate-800 leading-tight">CC1. Alin sa mga sumusunod ang naglalarawan sa inyong kaalaman sa Citizen's Charter?</label>
                             <select id="cc1" name="cc1" required onchange="handleCharterLogic()" class="w-full p-2 bg-white border rounded-lg focus:outline-none focus:border-blue-900 font-medium text-slate-700" disabled>
-                                <option value="1">1. Alam ko ang Citizen's Charter at nakita ko ito sa opisina na aking pinuntahan.</option>
-                                <option value="2">2. Alam ko ang Citizen's Charter pero hindi ko ito nakita sa opisina.</option>
-                                <option value="3">3. Nalaman ko ang Citizen's Charter nang makita ko ito sa opisina.</option>
-                                <option value="4">4. Hindi ko alam ang Citizen's Charter at wala akong nakita sa opisina.</option>
+                                <option value="1">1. Alam ko ang Citizen's Charter at nakita ko ito sa opisina na aking pinuntahan (I know and a saw it).</option>
+                                <option value="2">2. Alam ko ang Citizen's Charter pero hindi ko ito nakita sa opisina (I know but did not see it).</option>
+                                <option value="3">3. Nalaman ko ang Citizen's Charter nang makita ko ito sa opisina (I only knew when I saw it).</option>
+                                <option value="4">4. Hindi ko alam ang Citizen's Charter at wala akong nakita sa opisina (I have no idea).</option>
                             </select>
                         </div>
 
@@ -355,7 +356,8 @@
     </main>
 
     <footer class="bg-slate-900 text-slate-500 text-center py-3 text-[10px] border-t border-slate-950 font-mono shrink-0">
-        &copy; 2026 LTO Region VI. System Classification Configured.
+        &copy; 2026 LTO Region VI Planning Unit.
+        
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/dist/umd/supabase.js"></script>
@@ -364,9 +366,9 @@
         // ===================================================
         // 0. SYSTEM CONFIGURATION PARAMETER DEFINITION
         // ===================================================
-        // Leave as 'offsite' for the public version clients use on their own phones.
-        // Change this constant to 'onsite' for the branch kiosk terminal versions.
-        const SUBMISSION_MODE = 'offsite'; 
+        // This is the public, no-login version handed to clients to self-encode
+        // their own survey using a control number given by the Releasing Officer.
+        const SUBMISSION_MODE = 'offsite';
 
         // ===================================================
         // 1. SETTINGS & CONTEXT CONNECTIONS INITIALIZATION
@@ -422,6 +424,53 @@
                 if (cc3Select.value === "4") cc3Select.value = "1";
             }
         }
+
+        // ===================================================
+        // 3.5 SQD0 (OVERALL SATISFACTION) SUGGESTION ENGINE
+        // ===================================================
+        // Suggests SQD0 based on the rounded average of SQD1-SQD8.
+        // It only pre-selects a radio button - it never disables the
+        // SQD0 row, so the encoder can always tap a different value.
+        // Once the encoder manually picks their own SQD0 value, the
+        // auto-suggestion stops overriding it (until the form/section
+        // is cleared or reset).
+        let sqd0ManualOverride = false;
+        const SQD_KEYS = ['sqd1', 'sqd2', 'sqd3', 'sqd4', 'sqd5', 'sqd6', 'sqd7', 'sqd8'];
+
+        function suggestSqd0() {
+            if (sqd0ManualOverride) return;
+
+            const values = SQD_KEYS.map(key => {
+                const checked = document.querySelector(`input[name="${key}"]:checked`);
+                return checked ? parseInt(checked.value, 10) : null;
+            });
+
+            // Wait until all 8 dimensions are answered before suggesting
+            if (values.some(v => v === null)) return;
+
+            const average = values.reduce((sum, v) => sum + v, 0) / values.length;
+            let suggestedValue = Math.round(average); // 4.5 -> 5, 4.4 -> 4, etc.
+            suggestedValue = Math.min(5, Math.max(1, suggestedValue));
+
+            const targetRadio = document.querySelector(`input[name="sqd0"][value="${suggestedValue}"]`);
+            if (targetRadio) {
+                // Setting .checked via script does NOT fire a 'change' event,
+                // so this will not be mistaken for a manual encoder override.
+                targetRadio.checked = true;
+            }
+        }
+
+        SQD_KEYS.forEach(key => {
+            document.querySelectorAll(`input[name="${key}"]`).forEach(input => {
+                input.addEventListener('change', suggestSqd0);
+            });
+        });
+
+        document.querySelectorAll('input[name="sqd0"]').forEach(input => {
+            input.addEventListener('change', () => {
+                sqd0ManualOverride = true; // Encoder tapped SQD0 directly - respect their choice
+            });
+        });
 
         // ===================================================
         // 4. CODE VERIFICATION WITH AUTOMATED OFFICE PREFIX MATCHING
@@ -524,6 +573,7 @@
 
         function clearSectionSQD() {
             document.getElementById('csm_survey_form').querySelectorAll('input[type="radio"]').forEach(rad => rad.checked = false);
+            sqd0ManualOverride = false; // allow auto-suggestion to resume for the next set of answers
         }
 
         function clearSectionFeedback() {
@@ -536,6 +586,7 @@
                 document.getElementById('date_of_visit').value = new Date().toISOString().split('T')[0];
                 document.getElementById('cc2').disabled = false;
                 document.getElementById('cc3').disabled = false;
+                sqd0ManualOverride = false; // allow auto-suggestion to resume
                 togglePipelineView();
             }
         }
@@ -568,7 +619,11 @@
                 return;
             }
 
+            // No login/session in this public version, so encoder_office stays null
+            const responseId = crypto.randomUUID();
+
             const payload = {
+                id: responseId, // 🎯 PINNED AS PRIMARY KEY
                 control_code: controlNo,
                 client_type: formData.get('client_type'),
                 sex: formData.get('sex'),
@@ -576,7 +631,8 @@
                 office_visited: controlNo.substring(0, 2),
                 date_of_visit: formData.get('date_of_visit'),
                 main_services: mainServices,
-                
+                response_id: responseId,
+                encoder_office: null, // 🎯 Left null: this is a self-encoded, offsite client submission
                 // 🚨 CONFIGURATION BIND: Dynamically attaches your custom constant environment type label string
                 submission_mode: SUBMISSION_MODE,
                 
